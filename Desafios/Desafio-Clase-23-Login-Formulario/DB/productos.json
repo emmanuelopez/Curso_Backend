@@ -1,0 +1,20 @@
+[
+    {
+      "title": "Lovaglio Malbec",
+      "price": "1200",
+      "thumbnail": "../public/images/L-Malbec.jpg",
+      "id": 1
+    },
+    {
+      "title": "Lovaglio Cabernet-Sauvignon",
+      "price": "1000",
+      "thumbnail": "../public/images/L-Cabernet-Sauvignon.jpg",
+      "id": 2
+    },
+    {
+      "title": "Lovaglio Torrontes",
+      "price": "900",
+      "thumbnail": "../public/images/L-Torrontes.jpg",
+      "id": 3
+    }
+  ]
