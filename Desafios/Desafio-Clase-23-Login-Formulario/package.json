@@ -1,0 +1,26 @@
+{
+  "type": "module",
+  "name": "desafio-clase-23-login-formulario",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "nodemon src/main.js -e ejs,html,js,json",
+    "watch": "nodemon src/main.js -e ejs,html,js,json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^6.3.1",
+    "connect-mongo": "^4.6.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "knex": "^2.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.16",
+    "normalizr": "^3.6.2",
+    "socket.io": "^4.5.0"
+  }
+}
