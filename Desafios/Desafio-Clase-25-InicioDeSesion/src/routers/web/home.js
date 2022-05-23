@@ -7,7 +7,7 @@ const productosWebRouter = new Router()
 
 productosWebRouter.get('/home', webAuth, (req, res) => {
     // res.sendFile(path.join(process.cwd(), '/views/home.html'))
-    res.render(path.join(process.cwd(), '/views/pages/home.ejs'), { nombre: req.session.nombre })
+    res.render(path.join(process.cwd(), '/views/pages/home.ejs')/*, { email: req.session.email }*/)
 })
 
 productosWebRouter.get('/productos-vista-test', (req, res) => {

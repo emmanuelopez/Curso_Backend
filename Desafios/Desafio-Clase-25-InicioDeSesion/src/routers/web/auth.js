@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import passport from 'passport'
 
 import path from 'path'
 
@@ -8,36 +9,54 @@ authWebRouter.get('/', (req, res) => {
     res.redirect('/home')
 })
 
-authWebRouter.get('/login', (req, res) => {
-    const nombre = req.session?.nombre
-    if (nombre) {
+authWebRouter.get('/signup', (req, res) => {
+    res.sendFile(path.join(process.cwd(), '/views/signup.html'))
+})
+
+authWebRouter.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/home',
+    failureRedirect: '/signup',
+    failureFlash: true
+}))
+
+authWebRouter.get('/signin', (req, res) => {
+    /*
+    const email = req.session?.email
+    if (email) {
         res.redirect('/')
     } else {
-        res.sendFile(path.join(process.cwd(), '/views/login.html'))
-    }
+        res.sendFile(path.join(process.cwd(), '/views/signin.html'))
+    }*/
+    res.sendFile(path.join(process.cwd(), '/views/signin.html'))
 })
+
+
+authWebRouter.post('/signin', passport.authenticate('local-signin', {
+    successRedirect: '/home',
+    failureRedirect: '/signin',
+    failureFlash: true
+}))
+
+authWebRouter.get('/home', isAuth, (req, res) => {
+    res.sendFile(path.join(process.cwd(), '/views/pages/home.html'));
+  });
 
 authWebRouter.get('/logout', (req, res) => {
-    const nombre = req.session?.nombre
-    if (nombre) {
-        req.session.destroy(err => {
-            if (!err) {
-                res.render(path.join(process.cwd(), '/views/pages/logout.ejs'), { nombre })
-            } else {
-                res.redirect('/')
-            }
+    if (req.isAuthenticated()) {
+        req.logout(function(err) {
+            if (err) { return next(err); }
         })
-    } else {
-        res.redirect('/')
+        res.render(path.join(process.cwd(), '/views/pages/logout.ejs'), { email })
     }
+    res.redirect('/')
 })
 
 
-authWebRouter.post('/login', (req, res) => {
-    req.session.nombre = req.body.nombre
-    res.redirect('/home')
-})
-
-
+function isAuth(req, res, next) {
+    if(req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/')
+  }
 
 export default authWebRouter
