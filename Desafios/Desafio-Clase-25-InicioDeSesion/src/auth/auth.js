@@ -1,4 +1,3 @@
-/*
 export function webAuth(req, res, next) {
     if (req.session?.nombre) {
         next()
@@ -6,26 +5,11 @@ export function webAuth(req, res, next) {
         res.redirect('/login')
     }
 }
-*/
-import { obtenerUsuarioPorNombre } from '../persistencia/usuarios.js'
 
-export function autenticar(nombre, password) {
-    let usuario
-    try {
-        usuario = obtenerUsuarioPorNombre(nombre)
-    } catch (error) {
-        throw new Error('error en la autenticacion')
-    }
-    if (usuario.password !== password) {
-        throw new Error('error en la autenticacion')
-    }
-}
-
-
-export function requiereAutenticacion(req, res, next) {
-    if (req.isAuthenticated) {
+export function apiAuth(req, res, next) {
+    if (req.session?.nombre) {
         next()
     } else {
-        res.status(401).json({ msg: 'Este recurso requiere autenticacion' })
+        res.status(401).json({ error: 'no autorizado!' })
     }
 }
