@@ -49,6 +49,6 @@ const renderhbs = (messages) => {
   };
 
 //Escucho lo que envia el servidor de socket y llamo a la funcion render/renderhbs  
-socket.on("messages", (data) => {
+socket.on("server:load_messages", (data) => {
     renderhbs(data);
 })

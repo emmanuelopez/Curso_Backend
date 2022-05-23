@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { isAdmin } = require("../middlewares/auth")
 
 const ContenedorP = require('../contenedores/contenedorProducto')
 
