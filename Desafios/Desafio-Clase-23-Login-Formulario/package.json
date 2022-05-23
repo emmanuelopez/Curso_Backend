@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "start": "node src/main.js",
+    "start": "nodemon src/main.js -e ejs,html,js,json",
     "watch": "nodemon src/main.js -e ejs,html,js,json"
   },
   "keywords": [],
