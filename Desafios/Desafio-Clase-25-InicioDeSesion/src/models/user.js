@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt-nodejs"); //encripta la contraseña
+import { mongoose } from "mongoose"
+import  bCrypt  from "bcrypt-nodejs" //encripta la contraseña
 
 const { Schema } = mongoose;
 
@@ -9,11 +9,11 @@ const userSchema = new Schema({
 });
 //encripta el password antes de guardarlo en la db
 userSchema.methods.encryptPassword = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  return bCrypt.hashSync(password, bCrypt.genSaltSync(10));
 };
 //compara el password con el encriptado de la db
 userSchema.methods.comparePassword = function (password) {
-  return bcrypt.compareSync(password, this.password);
+  return bCrypt.compareSync(password, this.password);
 };
 
 module.exports = mongoose.model("user", userSchema);
