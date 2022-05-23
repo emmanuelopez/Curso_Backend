@@ -1,12 +1,13 @@
 const express = require('express');
 const path = require('path');
-const { Server: HttpServer } = require("http");
-const { Server: IOServer } = require("socket.io");
+const { Server: HttpServer } = require('http');
+const { Server: IOServer } = require('socket.io');
+const { connectDB } = require('./db');
+const Mensaje = require('./models/mensaje')
 
 //Obtengo los productos
 const productosRouter = require('./routes/productos');
 const productosMockRouter = require('./routes/productosMock');
-//const { isConstructorDeclaration } = require('typescript')
 
 const app = express();
 const httpServer = new HttpServer(app);
@@ -19,7 +20,6 @@ app.use('/api', productosRouter);
 app.use('/api', productosMockRouter);
 
 const ContenedorP = require('./contenedores/contenedorProducto')
-const ContenedorM = require('./contenedores/contenedorMensaje')
 
 const Producto = new ContenedorP(
   {
@@ -47,8 +47,6 @@ const Producto = new ContenedorP(
   }
 })();
 
-//obtengo listado de productos
-//let listadoProductos = Producto.getProductos();
 let listadoProductos
 (async () => {
   try {
@@ -58,49 +56,9 @@ let listadoProductos
   }
 })();
 
-/*
-const Mensaje = new ContenedorM(
-  {
-    client: "sqlite3",
-    connection: { filename: "./mydb.sqlite" },
-  },
-  "mensajes"
-);
+connectDB();
 
-//creo la tabla mensajes
-(async () => {
-  try {
-    await Mensaje.crearTablaMensajes();
-    console.log("Creada la tabla Mensajes")
-  } catch (err) {
-    console.error(err);
-  }
-})();
-*/
 const date = new Date();
-/*
-let listaMensajes = [{ 
-  email:"Admin",
-  fecha: date.toLocaleDateString() + " " + date.toLocaleTimeString(),
-  mensaje: "Bienvenido al chat!!"
-}];
-(async () => {
-  try {
-    listaMensajes = await Mensaje.getMensajes();
-  } catch (err) {
-    console.error(err);
-  }
-})();
-*/
-
-app.use(function (req, res, next) {
-    req.user = {
-      name: "Ema",
-      is_admin: true,
-    };
-    next();
-});
-
 
 const MENSAJES = [
   {
@@ -110,14 +68,42 @@ const MENSAJES = [
   },
 ]
 
+//Sockets
+
 io.on("connection", (socket) => {
-    console.log('Un cliente se ha conectado con id: ', socket.id);
-    //agrego el nuevo mensaje enviado
-    socket.on("new_message", data => {
-      MENSAJES.push(data);
-      io.sockets.emit("messages", MENSAJES);
+  console.log('Un cliente se ha conectado con id: ', socket.id);
+  const emitMensajes = async () => {
+    const mensajes = await Mensaje.find()
+    io.emit('server:load_messages', mensajes);
+  }
+  emitMensajes()
+
+  socket.on('client:new_message', async data => {
+      const newMessage = new Mensaje(data);
+      const savedMessage = await newMessage.save();
+      io.emit('server:new_message', savedMessage);
+  });
+  /*
+  socket.on('client:delete_message', async (id) => {
+      await Mensaje.findByIdAndDelete(id);
+      emitMensajes()
+  });
+  */
+ /*
+  socket.on('client:get_message', async (id) => {
+      const mensaje = await Mensaje.findById(id);
+      io.emit('server:selected_message', mensaje);
+  });
+  */
+ /*
+  socket.on('client:update_message', async (updatedMessage) => {
+      await Mensaje.findByIdAndUpdate(updatedMessage._id, {
+          title: updatedMessage.title,
+          description: updatedMessage.description,
+      });
+      emitMensajes();
   })
-  io.sockets.emit("messages", MENSAJES);
+  */
 })
 
 app.io = io;
