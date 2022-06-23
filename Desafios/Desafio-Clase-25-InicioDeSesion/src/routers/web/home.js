@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { webAuth } from '../../auth/auth.js'
+import { isAuth } from './auth.js'
 
 import path from 'path'
 
 const productosWebRouter = new Router()
 
-productosWebRouter.get('/home', webAuth, (req, res) => {
+productosWebRouter.get('/home', isAuth, (req, res) => {
     // res.sendFile(path.join(process.cwd(), '/views/home.html'))
     res.render(path.join(process.cwd(), '/views/pages/home.ejs')/*, { email: req.session.email }*/)
 })

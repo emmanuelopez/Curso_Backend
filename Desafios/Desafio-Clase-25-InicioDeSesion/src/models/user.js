@@ -1,7 +1,7 @@
-import { mongoose } from "mongoose"
+import  { mongoose } from "mongoose"
 import  bCrypt  from "bcrypt-nodejs" //encripta la contraseña
 
-const { Schema } = mongoose;
+const { Schema, model } = mongoose
 
 const userSchema = new Schema({
   email: String,
@@ -16,4 +16,4 @@ userSchema.methods.comparePassword = function (password) {
   return bCrypt.compareSync(password, this.password);
 };
 
-module.exports = mongoose.model("user", userSchema);
+export default model("User", userSchema);
