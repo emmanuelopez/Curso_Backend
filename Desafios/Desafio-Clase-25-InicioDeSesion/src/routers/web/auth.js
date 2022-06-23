@@ -51,8 +51,7 @@ authWebRouter.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-
-function isAuth(req, res, next) {
+export function isAuth(req, res, next) {
     if(req.isAuthenticated()) {
       return next();
     }

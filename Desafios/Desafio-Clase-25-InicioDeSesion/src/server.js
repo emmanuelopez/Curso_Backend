@@ -1,8 +1,13 @@
 import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import flash from 'connect-flash'
+import passport from 'passport'
 
-import config from './config.js'
+import { config } from 'dotenv'
+config()
+
+import configDB from './config.js'
 
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'
@@ -41,7 +46,7 @@ app.set('view engine', 'ejs');
 
 app.use(session({
     // store: MongoStore.create({ mongoUrl: config.mongoLocal.cnxStr }),
-    store: MongoStore.create({ mongoUrl: config.mongoRemote.cnxStr }),
+    store: MongoStore.create({ mongoUrl: configDB.mongoRemote.cnxStr }),
     secret: 'shhhhhhhhhhhhhhhhhhhhh',
     resave: false,
     saveUninitialized: false,
@@ -50,6 +55,10 @@ app.use(session({
         maxAge: 60000
     }
 }))
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //--------------------------------------------
 // rutas del servidor API REST
@@ -65,7 +74,7 @@ app.use(homeWebRouter)
 //--------------------------------------------
 // inicio el servidor
 
-const connectedServer = httpServer.listen(config.PORT, () => {
+const connectedServer = httpServer.listen(configDB.PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${connectedServer.address().port}`)
 })
 connectedServer.on('error', error => console.log(`Error en servidor ${error}`))
