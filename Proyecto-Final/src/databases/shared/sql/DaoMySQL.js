@@ -7,11 +7,25 @@ export default class DaoMySQL extends Dao {
         this.nombreTabla = nombreTabla
     }
 
-    async guardar(registro) {
-        await this.knex(this.nombreTabla).insert(registro)
+    async crearId() {
+        let productos = await this.knex(this.nombreTabla).select()
+        if (productos.length == 0) {
+            return 1
+        } else {
+            return productos.length + 1
+        }
     }
 
-    async listarTodas() {
+    async guardar(data) {
+        await this.knex(this.nombreTabla).insert(data)
+    }
+
+    async listarTodos() {
         return this.knex(this.nombreTabla).select()
+    }
+
+    async listarPorId(id) {
+        let contenido = await this.knex.from(this.nombreTabla).select('*').where('id', parseInt(id));
+        return (contenido.length === 0 ? contenido = `No existe en la tabla ${this.nombreTabla} el elemento con id: ${id}` : contenido );
     }
 }

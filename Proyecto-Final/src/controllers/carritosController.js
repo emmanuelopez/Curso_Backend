@@ -25,8 +25,8 @@ export async function getProductosCarrito(req, res, next) {
         const idCarrito = parseInt(req.params.idCarrito);
         const carrito = await listarCarritoPorId(idCarrito)
         if (carrito) {
-            console.log(carrito);
-            res.status(201).json(carrito) 
+            console.log(carrito.productos);
+            res.status(201).json(carrito.productos) 
         } else res.status(400).send('No existe el carrito con el id: ' + idCarrito)   
     } catch (error) {
         next(error)
@@ -55,7 +55,7 @@ export async function postProductoCarrito(req, res, next) {
         const objProducto = {...req.body};
         const productoAgregado = await agregarProductoCarrito(idCarrito, objProducto)
         if (productoAgregado) {
-            console.log(productoAgregado);
+            console.log(productoAgregado)
             res.status(201).json(productoAgregado)
         } else res.status(400).send('No se pudo agregar el producto al carrito')
     } catch (error) {
@@ -69,7 +69,8 @@ export async function deleteProductoCarrito(req, res, next) {
         const idProducto = parseInt(req.params.idProducto);
         const resultado = await borrarProductoCarrito(idCarrito, idProducto);
         if (resultado) {
-            res.status(201).json({msg: 'Producto borrado'})
+            console.log(resultado)
+            res.status(201).json(resultado)
         } else res.status(400).send('No se pudo borrar el producto')
     } catch (error) {
         next(error)

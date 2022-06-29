@@ -4,7 +4,7 @@ import * as carritosController from '../controllers/carritosController.js'
 const carritosRouter = Router()
 
 carritosRouter.get('/', carritosController.getAllCarritos)
-carritosRouter.get('/:idCarrito/productos', carritosController.getProductosCarrito)
+carritosRouter.get('/:idCarrito', carritosController.getProductosCarrito)
 carritosRouter.post('/', carritosController.postCarrito)
 carritosRouter.post('/:idCarrito/productos', carritosController.postProductoCarrito)
 carritosRouter.delete('/:idCarrito/productos/:idProducto', carritosController.deleteProductoCarrito)

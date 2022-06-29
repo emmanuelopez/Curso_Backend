@@ -14,9 +14,11 @@ export default class DaoProductosMemoria extends DaoMemoria {
         return obj
     }
 
-    async borrar(id) {
-        this.objects = this.objects.filter(producto => producto.id !== id)
-        return true
+    async borrar(idProducto) {
+        let posicion = this.objects.findIndex(element=> element.id === idProducto);
+            if ( posicion > -1) {
+                this.objects.splice(posicion,1); //borro producto
+                return true; // retorno OK la eliminacion
+            }
     }
-
 }
