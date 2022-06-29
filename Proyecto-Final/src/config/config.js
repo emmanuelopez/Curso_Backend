@@ -1,3 +1,3 @@
-export const MODO_PERSISTENCIA = ''
+export const MODO_PERSISTENCIA = 'mysql'
 export const PORT = 8080
-export const CNX_STR = 'mongodb://root:mongopassword@localhost:27017/coderhouse?authSource=admin'
+export const CNX_STR = 'mongodb://127.0.0.1:27017/ecommerce'

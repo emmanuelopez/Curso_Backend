@@ -49,8 +49,8 @@ export async function put(req, res, next) {
         const objProducto = {...req.body};
         const productoActualizado = await actualizarProducto(idProducto, objProducto)
         if (productoActualizado) {
-            console.log(productoActualizado);
-            res.status(201).json(productoActualizado)
+            console.log(`El producto con id ${idProducto} se actualizo correctamente`);
+            res.status(201).json(`El producto con id ${idProducto} se actualizo correctamente`)
         } else res.status(400).send('No se pudo actualizar el producto')
     } catch (error) {
         next(error)

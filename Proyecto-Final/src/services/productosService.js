@@ -48,10 +48,7 @@ export async function actualizarProducto(idProducto, objProducto) {
 
 export async function borrarProducto(idProducto) {
     if (idProducto != undefined && typeof(idProducto) === "number") {
-        let producto = await daoProductos.listarPorId(idProducto)
-        if (producto != undefined) {
-            return await daoProductos.borrar(idProducto)
-        }
+        return await daoProductos.borrar(idProducto)
     }
     return false
 }
