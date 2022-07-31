@@ -1,0 +1,17 @@
+const router = require("express").Router();
+const path = require("path");
+const { fork } = require("child_process");
+const comprimir = require("compression")
+
+
+router.get("", comprimir(), (req, res) => {
+  let cant = req.query.cant ?? 100000000;
+  const proceso = fork(path.join(__dirname, "../numeros_random/random.js"));
+
+  proceso.on("message", (data) => {
+    res.status(200).json(data);
+  });
+  proceso.send(cant);
+});
+
+module.exports = router;
