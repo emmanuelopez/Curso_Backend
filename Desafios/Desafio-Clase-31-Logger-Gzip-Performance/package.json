@@ -1,0 +1,30 @@
+{
+  "name": "desafio-clase-29-proxy-nginx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node .",
+    "start:cluster": "node src/server.js --modo CLUSTER",
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "compression": "^1.7.4",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-handlebars": "^5.3.5",
+    "express-session": "^1.17.3",
+    "log4js": "^6.6.0",
+    "minimist": "^1.2.6",
+    "mongoose": "^6.4.6",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
