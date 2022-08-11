@@ -1,5 +1,18 @@
-import { crear } from '../models/productoModel.js'
+import { crear } from '../models/producto.js'
 import daoProductos from '../databases/productos/daoProductos.js'
+
+
+export async function listarProductos() {
+    return await daoProductos.getAll()
+}
+
+export async function listarProductoPorId(idProducto) {
+    if (idProducto != undefined) {
+        let producto = await daoProductos.getById(idProducto)
+        return producto;
+    }
+    return null
+}
 
 export async function crearProducto(datos) {
     if (datos.nombre != undefined && 
@@ -9,24 +22,12 @@ export async function crearProducto(datos) {
         (datos.precio != undefined && parseInt(datos.precio) != NaN) &&
         (datos.stock != undefined && parseInt(datos.stock) != NaN) &&
         (datos.imagenURL != undefined && datos.imagenURL != "")) {
-            const producto = await crear(datos)
-            await daoProductos.guardar(producto)
+            const producto = crear(datos)
+            await daoProductos.save(producto)
             return producto
-    }else{
+    } else {
         return null;
     } 
-}
-
-export async function listarProductos() {
-    return await daoProductos.listarTodos()
-}
-
-export async function listarProductoPorId(idProducto) {
-    if (idProducto != undefined && typeof(idProducto) === "number") {
-        let producto = await daoProductos.listarPorId(idProducto)
-        return producto;
-    }
-    return null
 }
 
 export async function actualizarProducto(idProducto, objProducto) {
@@ -37,18 +38,18 @@ export async function actualizarProducto(idProducto, objProducto) {
         (objProducto.precio != undefined && parseInt(objProducto.precio) != NaN) && 
         (objProducto.stock != undefined && parseInt(objProducto.stock) != NaN) &&
         (objProducto.imagenURL != undefined && objProducto.imagenURL != "") &&
-        (idProducto != undefined && typeof(idProducto) === "number")){
-            let producto = await daoProductos.listarPorId(idProducto)
+        (idProducto != undefined)){
+            let producto = await daoProductos.getById(idProducto)
             if (producto != undefined) {
-                return await daoProductos.actualizar(idProducto, objProducto)
+                return await daoProductos.update(idProducto, objProducto)
             }
     }
     return null
 }
 
-export async function borrarProducto(idProducto) {
-    if (idProducto != undefined && typeof(idProducto) === "number") {
-        return await daoProductos.borrar(idProducto)
+export async function eliminarProducto(idProducto) {
+    if (idProducto != undefined) {
+        return await daoProductos.deleteById(idProducto)
     }
     return false
 }

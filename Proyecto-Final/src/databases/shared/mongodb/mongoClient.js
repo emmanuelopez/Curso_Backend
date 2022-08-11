@@ -1,8 +1,11 @@
 import { MongoClient } from 'mongodb'
-import { CNX_STR } from '../../../config/config.js'
+import config from '../../../config/config.js'
+import logger from '../../../logger.js'
 
-const client = new MongoClient(CNX_STR)
+
+const client = new MongoClient(config.MONGODB_URL)
 await client.connect()
-const db = client.db()
+const db = client.db(config.MONGO_DB)
+logger.info(`Base de datos ${config.MONGO_DB} conectada`);
 
 export { db }

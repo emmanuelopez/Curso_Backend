@@ -1,9 +1,9 @@
-import daoProductos from '../databases/productos/daoProductos.js'
+import nuId from 'nuid'
 
 
-export async function crear(datos) {
+export function crear(datos) {
     return {
-        id: await daoProductos.crearId(),
+        id: crearId(),
         nombre: datos.nombre,
         codigo: datos.codigo,
         fechaHora: datos.fechaHora,
@@ -12,4 +12,9 @@ export async function crear(datos) {
         imagenURL: datos.imagenURL,
         stock: datos.stock,
     }
+}
+
+function crearId() {
+    let newId = nuId.next()
+    return newId
 }
