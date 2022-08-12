@@ -17,7 +17,6 @@ export async function listarCarritoPorId(idCarrito) {
 //Creo el carrito y recibo como parametro uno de los productos anteriormente creados
 export async function crearCarrito(objProducto) {
     const carrito = crear(objProducto)
-    console.log(carrito);
     await daoCarritos.save(carrito)
     return carrito.id
 }

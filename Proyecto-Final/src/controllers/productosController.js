@@ -27,7 +27,6 @@ export async function obtenerUnProducto(req, res, next) {
         } else res.status(400).send('No existe el producto con el id: ' + idProducto)   
     } 
     catch (error) {
-        console.log("hola");
         next(error)
     }
 }

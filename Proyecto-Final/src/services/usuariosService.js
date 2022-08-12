@@ -94,8 +94,7 @@ export async function enviarEmailNuevoUsuario(objetoUsuario){
 export async function existeEmail(email) {
     logger.info(`usuariosService.js - existeEmail ${email}`);
     try {
-        await daoUsuarios.getByEmail(email);
-        return true;
+        return await daoUsuarios.getByEmail(email);
     }
     catch (err) {
         logger.error(`Falló al validar si el email ya existe en la Base de datos - error:${err}`)
@@ -106,13 +105,5 @@ export async function existeEmail(email) {
     
 export async function existeUsername(username) {
     logger.info(`usuariosService.js - existeUsername ${username}`);
-    try {
-        await daoUsuarios.getByUsername(username);
-        return true;
+    return await daoUsuarios.getByUsername(username);
     }
-    catch (err) {
-        logger.error(`Falló al validar si el username ya existe en la Base de datos - error:${err}`)
-        if (err.estado == 404) return false;
-        else throw err
-    }
-}

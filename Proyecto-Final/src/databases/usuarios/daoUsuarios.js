@@ -7,11 +7,11 @@ class DaoUsuarios extends Dao {
     }
 
     async getByEmail(email) {
-        return super.getById({"email":email})
+        return super.getById(email)
     }
 
     async getByUsername(username) {
-        return super.getById({"username":username})
+        return this.collection.findOne({ "username": username })
     }
 
     async deleteByEmail(email) {

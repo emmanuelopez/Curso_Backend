@@ -31,5 +31,5 @@ export default {
     MODO: modo,
     MONGODB_URL: process.env.MONGODB_URL || 'noURL',
     MONGO_DB: process.env.MONGO_BASE || 'ecommerce',
-    MAIL_ADMINISTRADOR: process.env.MAIL_ADMIN
+    EMAIL_ADMINISTRADOR: process.env.MAIL_ADMIN
 }

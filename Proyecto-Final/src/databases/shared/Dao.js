@@ -13,7 +13,7 @@ export default class Dao {
     }
     
     async getById(query) {
-        let resultado = await this.collection.findOne({ id: query })
+        let resultado = await this.collection.findOne({ "id": query })
         return resultado
     }
 
@@ -23,7 +23,7 @@ export default class Dao {
     }
 
     async deleteById(query) {
-        let resultado = await this.collection.deleteOne({ id: query })
+        let resultado = await this.collection.deleteOne({ "id": query })
         return resultado
     }
 

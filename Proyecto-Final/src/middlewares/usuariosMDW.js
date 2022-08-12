@@ -11,10 +11,9 @@ export async function mdwValidateSchemaNewUsuario(req, res, next) {
     let data
     try {
         data = await schemaNewUser.validateAsync(req.body)
-        console.log(data);
     }
     catch (err) {
-        logger.warn(`Error al validar el esquema de usuarios - Error: ${err.details}`)
+        logger.warn(`Error al validar el esquema de usuarios - Error: ${err.details[0].message}`)
         return res.status(400).json({ descripcion: `Error al validar el esquema de usuarios - Error: ${err.details}` })
     }
 
@@ -22,9 +21,6 @@ export async function mdwValidateSchemaNewUsuario(req, res, next) {
         if (await existeEmail(data.email)) {
             return res.status(400).json({ descripcion: 'El email ya se encuentra registrado' })
         }
-
-        //if (await existeUsername(data.username))
-        //    return res.status(400).json({ descripcion: 'El username ya se encuentra registrado' })
     }
     catch (err) {
         logger.error(`Error al ejecutar validaciones de usuarios - Error: ${err}`)
