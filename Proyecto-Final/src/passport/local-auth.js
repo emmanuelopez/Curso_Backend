@@ -4,7 +4,8 @@ import logger from '../logger.js'
 import {
   existeUsername,
   crearUsuario,
-  login
+  login,
+  existeEmail
 } from '../services/usuariosService.js'
 
 
@@ -13,8 +14,9 @@ passport.use('registro', new Strategy({
   },
   async (req, username, password, done) => {
     logger.info(`local-auth.js - passport.use --> registro`)
-    //const { email } = req.body
-    const user = await existeUsername(username);
+    const { email } = req.body
+    const user = await existeEmail(email)
+    //const user = await existeUsername(username);
     if (user) {
       return done(null, false)
     } 

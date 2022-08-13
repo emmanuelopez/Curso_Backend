@@ -29,7 +29,7 @@ export async function registro(req, res) {
 export async function failRegister(req, res){
     logger.info(`usuariosController.js: failRegister`)
     res.send("Usuario ya registrado")
-    res.render('register-error')
+    //res.render('register-error')
 }
 
 export async function successRegister(req, res){
@@ -40,7 +40,7 @@ export async function successRegister(req, res){
 //Login fallido
 export function failLogin(req, res){
     logger.info(`usuariosController.js: failLogin`)
-    res.render('login-error')
+    //res.render('login-error')
 }
 
 //Registro exitoso, muestra los datos del usuario

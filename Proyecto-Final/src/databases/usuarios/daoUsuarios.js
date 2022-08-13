@@ -7,7 +7,7 @@ class DaoUsuarios extends Dao {
     }
 
     async getByEmail(email) {
-        return super.getById(email)
+        return await this.collection.findOne({ email })
     }
 
     async getByUsername(username) {
