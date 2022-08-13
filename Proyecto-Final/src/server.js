@@ -7,6 +7,7 @@ import usuariosRouter from './routes/usuariosRouter.js'
 import apiRouter from './routes/apiRouter.js'
 import webRouter from './routes/webRouter.js'
 import defaultRouter from './routes/defaultRouter.js'
+import infoRouter from './routes/infoRouter.js'
 
 
 export function crearServidor() {
@@ -38,6 +39,7 @@ export function crearServidor() {
     app.use('/', webRouter)
     app.use('/usuarios', usuariosRouter) // usuarios que realizan la compra de los productos
     app.use('/api', apiRouter)
+    app.use('/info', infoRouter)
     app.use('/*', defaultRouter)
 
     return app
