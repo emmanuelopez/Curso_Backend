@@ -11,11 +11,11 @@ class DaoUsuarios extends Dao {
     }
 
     async getByUsername(username) {
-        return this.collection.findOne({ "username": username })
+        return await this.collection.findOne({ username })
     }
 
     async deleteByEmail(email) {
-        return await super.deleteById({ email: email })
+        return await this.collection.deleteOne({ email })
     }
 }
 

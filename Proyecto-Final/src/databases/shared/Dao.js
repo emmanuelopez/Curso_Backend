@@ -26,9 +26,4 @@ export default class Dao {
         let resultado = await this.collection.deleteOne({ "id": query })
         return resultado
     }
-
-    async listByQuery(query){
-        let resultado = await this.collection.find(query).toArray()
-        return resultado
-    }
 }

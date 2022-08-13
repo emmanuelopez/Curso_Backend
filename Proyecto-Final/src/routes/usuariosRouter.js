@@ -14,20 +14,20 @@ usuariosRouter.get('/', usuariosController.getAll);
 usuariosRouter.get('/registro', usuariosController.registro);
 
 //POST '/register' --> para dar de alta un nuevo usuario
-usuariosRouter.post('/registro', mdwValidateSchemaNewUsuario, passport.authenticate('registro', {
-    successRedirect: '/',
-    failureRedirect: '/failRegister',
-  })
+usuariosRouter.post('/registro', mdwValidateSchemaNewUsuario, 
+    passport.authenticate('registro', {
+    failureRedirect: '/failRegister'}),
+    usuariosController.successRegister
 );
 
 //GET '/failRegister' --> ruta registro fallido
 usuariosRouter.get('/failRegister', usuariosController.failRegister);
 
 //POST '/login' --> recibe email y password del usuario
-usuariosRouter.post('/login', passport.authenticate('login', {
-    failureRedirect: '/failLogin',
-    successRedirect: '/datos'
-  })
+usuariosRouter.post('/login', 
+  passport.authenticate('login', {
+    failureRedirect: '/failLogin'}),
+    usuariosController.datos
 );
     
 //GET '/failLogin --> ruta de login fallido'

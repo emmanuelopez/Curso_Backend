@@ -20,7 +20,6 @@ passport.use('registro', new Strategy({
     } 
     const newUser = req.body
     await crearUsuario(newUser);
-    console.log("CONTROL!!!");
     done(null, newUser);
   }
 ));

@@ -32,6 +32,11 @@ export async function failRegister(req, res){
     res.render('register-error')
 }
 
+export async function successRegister(req, res){
+    logger.info(`UsuariosController.js: successRegister`)
+    res.status(201).json({msg: `Registration was successful`}) //201 crear
+}
+
 //Login fallido
 export function failLogin(req, res){
     logger.info(`usuariosController.js: failLogin`)

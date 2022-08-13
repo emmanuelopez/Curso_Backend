@@ -42,9 +42,11 @@ export async function crearUsuario(objetoUsuario){
 //deletePedido
 export async function deleteUsuario(email) {
     logger.info(`usuariosService.js - deleteUsuario`);
-
     try{
-        return await daoUsuarios.deleteByEmail(email);
+        console.log(email);
+        let res = await daoUsuarios.deleteByEmail(email);
+        console.log(res);
+        return res
     }
     catch (err){
         logger.error(`Error al borrar el usuario con email: ${email}: ${err}`);

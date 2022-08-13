@@ -2,7 +2,6 @@ import schemaNewUser from '../schemas/usuariosSchema.js'
 import logger from '../logger.js'
 import { 
     existeEmail,
-    existeUsername
  } from '../services/usuariosService.js';
 
 
