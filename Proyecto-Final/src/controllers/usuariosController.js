@@ -20,50 +20,41 @@ export async function getAll(req, res) {
     }
 }
 
-//Obtiene ruta de registro
-export async function registro(req, res) {
-    res.render('register');
+//Registro exitoso
+export async function successRegister(req, res){
+    logger.info(`POST User: successRegister`);
+    res.status(201).json({ msg: `Registration was successful` });
 }
 
 //Registro fallido
 export async function failRegister(req, res){
-    logger.info(`usuariosController.js: failRegister`)
-    res.send("Usuario ya registrado")
-    //res.render('register-error')
+    logger.info(`POST User: failRegister`);
+    try {
+        res.status(403).json({ error: "The user is already registered" });
+      } catch (error) {
+        res.status(404).json(error);
+      }
 }
 
-export async function successRegister(req, res){
-    logger.info(`UsuariosController.js: successRegister`)
-    res.status(201).json({msg: `Registration was successful`}) //201 crear
-}
+//Login exitoso
+export async function successLogin (req, res) {
+    logger.info(`POST User: successLogin`);
+    res.json({ msg: "Success Login" });
+  };
 
 //Login fallido
 export function failLogin(req, res){
-    logger.info(`usuariosController.js: failLogin`)
-    //res.render('login-error')
-}
-
-//Registro exitoso, muestra los datos del usuario
-export async function datos(req, res) {
-    const user = req.user.username
-    try {
-      const datos = await existeUsername({username: user}).lean()
-      logger.info("Se muestran los datos del usuario: ", user)
-      res.render('datos', {
-        datos: datos
-      });
-    } catch (error) {
-      logger.error(error)
-    }
+    logger.info(`POST User: failLogin`);
+    res.status(401).json({ error: "Credential error" });
 }
 
 //Para desloguear al usuario
 export function logout(req, res){
-    logger.info(`usuariosController.js: logout`)
+    logger.info(`POST User: Logout`)
     if (req.isAuthenticated()){
         req.logout()
     }
-    res.status(200).json({msg: `El usuario ya se encuentra deslogueado.`})
+    res.status(200).json({msg: `Success Logout`})
 }
 
 //Dado un email por parametro borra el mismo de la coleccion
@@ -72,7 +63,7 @@ export async function borrarUsuario(req, res) {
     logger.info(`usuariosController.js: borrarUsuario --> ${email}`)
     try{
         await deleteUsuario(email)
-        res.status(401).json({msg: `El usuario ${email} fue eliminado correctamente`})
+        res.status(201).json({msg: `El usuario ${email} fue eliminado correctamente`})
     }
     catch (err){
         logger.error(err);

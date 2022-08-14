@@ -7,7 +7,7 @@ export async function listarCarritos() {
 }
 
 export async function listarCarritoPorId(idCarrito) {
-    if (idCarrito != undefined && typeof(idCarrito) === "number") {
+    if (idCarrito != undefined) {
         let carrito = await daoCarritos.getById(idCarrito)
         return carrito;
     }

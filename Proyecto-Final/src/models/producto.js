@@ -4,13 +4,11 @@ import nuId from 'nuid'
 export function crear(datos) {
     return {
         id: crearId(),
-        nombre: datos.nombre,
-        codigo: datos.codigo,
-        fechaHora: datos.fechaHora,
-        descripcion: datos.descripcion,
-        precio: datos.precio,
-        imagenURL: datos.imagenURL,
-        stock: datos.stock,
+        name: datos.name,
+        description: datos.description,
+        price: datos.price,
+        image: datos.image,
+        stock: datos.stock
     }
 }
 

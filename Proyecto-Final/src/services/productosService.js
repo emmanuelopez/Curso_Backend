@@ -15,13 +15,11 @@ export async function listarProductoPorId(idProducto) {
 }
 
 export async function crearProducto(datos) {
-    if (datos.nombre != undefined && 
-        datos.codigo != undefined && 
-        datos.fechaHora != undefined && 
-        datos.descripcion != undefined &&
-        (datos.precio != undefined && parseInt(datos.precio) != NaN) &&
+    if (datos.name != undefined && 
+        datos.description != undefined &&
+        (datos.price != undefined && parseInt(datos.price) != NaN) &&
         (datos.stock != undefined && parseInt(datos.stock) != NaN) &&
-        (datos.imagenURL != undefined && datos.imagenURL != "")) {
+        (datos.image != undefined && datos.image != "")) {
             const producto = crear(datos)
             await daoProductos.save(producto)
             return producto
@@ -31,13 +29,11 @@ export async function crearProducto(datos) {
 }
 
 export async function actualizarProducto(idProducto, objProducto) {
-    if (objProducto.nombre != undefined && 
-        objProducto.codigo != undefined && 
-        objProducto.fechaHora != undefined && 
-        objProducto.descripcion != undefined &&
-        (objProducto.precio != undefined && parseInt(objProducto.precio) != NaN) && 
-        (objProducto.stock != undefined && parseInt(objProducto.stock) != NaN) &&
-        (objProducto.imagenURL != undefined && objProducto.imagenURL != "") &&
+    if (datos.name != undefined && 
+        datos.description != undefined &&
+        (datos.price != undefined && parseInt(datos.price) != NaN) &&
+        (datos.stock != undefined && parseInt(datos.stock) != NaN) &&
+        (datos.image != undefined && datos.image != "") &&
         (idProducto != undefined)){
             let producto = await daoProductos.getById(idProducto)
             if (producto != undefined) {

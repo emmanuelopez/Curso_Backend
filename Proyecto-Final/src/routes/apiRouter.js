@@ -6,7 +6,7 @@ import usuariosRouter from './usuariosRouter.js'
 
 const apiRouter = Router()
 
-apiRouter.use('/productos', productosRouter) // productos disponibles en la pagina
-apiRouter.use('/carritos', carritosRouter) // carritos de compra de los usuarios
+apiRouter.use('/products', productosRouter) // productos disponibles en la pagina
+apiRouter.use('/shoppingcartproducts', carritosRouter) // carritos de compra de los usuarios
 
 export default apiRouter 

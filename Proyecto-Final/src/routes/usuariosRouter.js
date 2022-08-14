@@ -10,9 +10,6 @@ const usuariosRouter = new Router();
 //GET '/' --> obtiene todos los usuarios
 usuariosRouter.get('/', usuariosController.getAll);
 
-//Register
-usuariosRouter.get('/registro', usuariosController.registro);
-
 //POST '/register' --> para dar de alta un nuevo usuario
 usuariosRouter.post('/registro', mdwValidateSchemaNewUsuario, 
     passport.authenticate('registro', {
@@ -27,14 +24,14 @@ usuariosRouter.get('/failRegister', usuariosController.failRegister);
 usuariosRouter.post('/login', 
   passport.authenticate('login', {
     failureRedirect: '/failLogin'}),
-    usuariosController.datos
+    usuariosController.successLogin
 );
     
 //GET '/failLogin --> ruta de login fallido'
 usuariosRouter.get('/failLogin', usuariosController.failLogin);
 
-//Datos
-usuariosRouter.get('/datos', isAuth, usuariosController.datos);
+//GET '/successLogin --> ruta de login exitoso'
+usuariosRouter.get('/successLogin', usuariosController.successLogin);
 
 //GET '/logout' --> se desloguea
 usuariosRouter.get('/logout', usuariosController.logout);
