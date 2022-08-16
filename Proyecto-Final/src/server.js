@@ -1,7 +1,6 @@
 import express from 'express'
 import passport from './passport/local-auth.js'
 import path from 'path'
-import { engine } from 'express-handlebars'
 import session from 'express-session'
 import usuariosRouter from './routes/usuariosRouter.js'
 import apiRouter from './routes/apiRouter.js'
@@ -14,12 +13,6 @@ export function crearServidor() {
     
     const app = express()
     const __dirname = path.resolve();
-    
-    // settings
-    //Configuracion del motor de vistas
-    app.engine('handlebars', engine());
-    app.set('view engine', 'handlebars');
-    app.set('views', './views');
     
     app.use(express.json())
     app.use(express.urlencoded({ extended: true })); //es para recibir los datos de un formulario
